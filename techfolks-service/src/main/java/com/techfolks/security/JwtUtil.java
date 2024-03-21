@@ -1,8 +1,10 @@
 package com.techfolks.security;
 
+import com.techfolks.config.JwtConfig;
 import com.techfolks.entity.User;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.naming.AuthenticationException;
@@ -13,25 +15,27 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class JwtUtil {
 
+    @Autowired
+    private JwtConfig jwtConfig;
 
     private final String secret_key = "mysecretkey";
-    private long accessTokenValidity = 60*60*1000;
 
     private final JwtParser jwtParser;
 
     private final String TOKEN_HEADER = "Authorization";
     private final String TOKEN_PREFIX = "Bearer ";
 
-    public JwtUtil(){
+    public JwtUtil() {
         this.jwtParser = Jwts.parser().setSigningKey(secret_key);
     }
 
     public String createToken(User user) {
-        Claims claims = Jwts.claims().setSubject(user.getEmail());
-        claims.put("firstName",user.getFirstName());
-        claims.put("lastName",user.getLastName());
+        Claims claims = Jwts.claims().setSubject(user.getPhoneNumber());
+        claims.put("phoneNumber", user.getPhoneNumber());
+
         Date tokenCreateTime = new Date();
-        Date tokenValidity = new Date(tokenCreateTime.getTime() + TimeUnit.MINUTES.toMillis(accessTokenValidity));
+        Date tokenValidity = new Date(tokenCreateTime.getTime() + TimeUnit.MINUTES.toMillis(jwtConfig.getToken_validity()));
+
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(tokenValidity)
@@ -76,7 +80,7 @@ public class JwtUtil {
         }
     }
 
-    public String getEmail(Claims claims) {
+    public String getPhoneNumber(Claims claims) {
         return claims.getSubject();
     }
 

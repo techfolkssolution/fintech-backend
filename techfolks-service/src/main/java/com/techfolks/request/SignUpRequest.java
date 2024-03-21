@@ -1,11 +1,8 @@
 package com.techfolks.request;
 
-import lombok.*;
+import lombok.Data;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class LoginReq {
-
+public class SignUpRequest {
     private String phoneNumber, password;
 }

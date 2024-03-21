@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/techfolk
+    url: jdbc:mysql://localhost:3306/fintech
     username: root
     password: sahil1208
   jpa:
@@ -11,3 +11,6 @@ spring:
     hibernate:
       ddl-auto: update
       show-sql: true
+
+jwt:
+token_validity: 60 * 60 * 1000

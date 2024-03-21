@@ -2,6 +2,7 @@ package com.techfolks.entity;
 
 import com.techfolks.enums.Gender;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Builder
 @Data
 @Entity
 public class UserDetails {
@@ -20,7 +22,10 @@ public class UserDetails {
 
     @OneToOne
     @JoinColumn(name = "userId")
-    private User user_userId;
+    private User userId;
+
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @Column(name = "firstName",nullable = false)
     private String firstName;
@@ -41,12 +46,6 @@ public class UserDetails {
     @CreationTimestamp
     @Column(name = "createdOn",nullable = false)
     private LocalDate createdOn;
-
-    @Column(name = "createdBy",nullable = false)
-    private Integer createBy;
-
-    @Column(name = "updatedBy",nullable = false)
-    private int updatedBy;
 
     @UpdateTimestamp
     @Column(name = "updatedOn",nullable = false)

@@ -16,9 +16,6 @@ public class User {
     @Column(name = "userId")
     private Long userId;
 
-    @Column(name = "email", nullable = false)
-    private String email;
-
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
@@ -28,8 +25,8 @@ public class User {
     public User() {
     }
 
-    public User(String email, String password) {
-        this.email = email;
+    public User(String phoneNumber, String password) {
+        this.phoneNumber = phoneNumber;
         this.password = password;
     }
 
