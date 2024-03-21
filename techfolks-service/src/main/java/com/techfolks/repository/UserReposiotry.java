@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UserReposiotry extends JpaRepository<User, Long> {
 
-    @Query(value = "select * from user where email= :email", nativeQuery = true)
-    public User findUserByEmail(String email);
+    User findUserByPhoneNumber(String phoneNumber);
+
 }
 
